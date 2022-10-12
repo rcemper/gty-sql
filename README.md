@@ -1,14 +1,14 @@
-[![Repo-GitHub](https://img.shields.io/badge/dynamic/xml?color=gold&label=GitHub%20module.xml&prefix=ver.&query=%2F%2FVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsergeymi37%2Fgateway-mysql-connector-java-8-0-21-jar%2Fmaster%2Fmodule.xml)](https://raw.githubusercontent.com/sergeymi37/gateway-mysql-connector-java-8-0-21-jar/master/module.xml)
+[![Repo-GitHub](https://img.shields.io/badge/dynamic/xml?color=gold&label=GitHub%20module.xml&prefix=ver.&query=%2F%2FVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsergeymi37%2Fgateway-sql%2Fmaster%2Fmodule.xml)](https://raw.githubusercontent.com/sergeymi37/gateway-sql/master/module.xml)
  
-![OEX-zapm](https://img.shields.io/badge/dynamic/json?url=https:%2F%2Fpm.community.intersystems.com%2Fpackages%2Fgateway-mysql-connector-java-8-0-21-jar%2F&label=ZPM-pm.community.intersystems.com&query=$.version&color=green&prefix=gateway-mysql-connector-java-8-0-21-jar)
+![OEX-zapm](https://img.shields.io/badge/dynamic/json?url=https:%2F%2Fpm.community.intersystems.com%2Fpackages%2Fgateway-sql%2F&label=ZPM-pm.community.intersystems.com&query=$.version&color=green&prefix=gateway-sql)
  
-[![Docker-ports](https://img.shields.io/badge/dynamic/yaml?color=blue&label=docker-compose&prefix=ports%20-%20&query=%24.services.iris.ports&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsergeymi37%2Fgateway-mysql-connector-java-8-0-21-jar%2Fmaster%2Fdocker-compose.yml)](https://raw.githubusercontent.com/sergeymi37/gateway-mysql-connector-java-8-0-21-jar/master/docker-compose.yml)
+[![Docker-ports](https://img.shields.io/badge/dynamic/yaml?color=blue&label=docker-compose&prefix=ports%20-%20&query=%24.services.iris.ports&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsergeymi37%2Fgateway-sql%2Fmaster%2Fdocker-compose.yml)](https://raw.githubusercontent.com/sergeymi37/gateway-sql/master/docker-compose.yml)
  
-## gateway-mysql-connector-java-8-0-21-jar
+## gateway-sql
 
 ## What's new
 
-Module for importing instances of the %Library.SQLConnection class into the %SYS namespace, copying the jdbс driver `mysql-connector-java-8.0.21.jar`.
+Module for importing instances of the %Library.SQLConnection class into the %SYS namespace, copying the jdbс drivers `ojdbc6.jar, sqljdbc42.jar, mysql-connector-java-8.0.21.jar`.
 
 ## Installation with ZPM
 
@@ -16,9 +16,9 @@ If ZPM the current instance is not installed, then in one line you can install t
 ```
 set $namespace="%SYS", name="DefaultSSL" do:'##class(Security.SSLConfigs).Exists(name) ##class(Security.SSLConfigs).Create(name) set url="https://pm.community.intersystems.com/packages/zpm/latest/installer" Do ##class(%Net.URLParser).Parse(url,.comp) set ht = ##class(%Net.HttpRequest).%New(), ht.Server = comp("host"), ht.Port = 443, ht.Https=1, ht.SSLConfiguration=name, st=ht.Get(comp("path")) quit:'st $System.Status.GetErrorText(st) set xml=##class(%File).TempFilename("xml"), tFile = ##class(%Stream.FileBinary).%New(), tFile.Filename = xml do tFile.CopyFromAndSave(ht.HttpResponse.Data) do ht.%Close(), $system.OBJ.Load(xml,"ck") do ##class(%File).Delete(xml)
 ```
-If ZPM is installed, then `gateway-mysql-connector-java-8-0-21-jar` can be set with the command
+If ZPM is installed, then `gateway-sql` can be set with the command
 ```
-zpm:%SYS>install gateway-mysql-connector-java-8-0-21-jar
+zpm:%SYS>install gateway-sql
 ```
 ## Installation with Docker
 
@@ -29,7 +29,7 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 Clone/git pull the repo into any local directory
 
 ```
-$ git clone https://github.com/SergeyMi37/gateway-mysql-connector-java-8-0-21-jar
+$ git clone https://github.com/SergeyMi37/gateway-sql
 ```
 
 Open the terminal in this directory and run:
@@ -51,6 +51,7 @@ $ docker-compose exec iris iris session iris
 You can see what instances of the %Library.SQLConnection class are in the module by running a command in the %SYS namespace:
 
 ```
+
 %SYS>do ##class(appmsw.gateway.jdbc).ImportSQLConnection("view")
 
 %Library.SQLConnection. DSN =  type:string
@@ -73,6 +74,52 @@ You can see what instances of the %Library.SQLConnection class are in the module
 %Library.SQLConnection. pwd =  type:string
 %Library.SQLConnection. useCAST =  type:string
 %Library.SQLConnection. useCASTCHAR =  type:string
+%Library.SQLConnection. useCOALESCE = 1 type:number
+%Library.SQLConnection. xadriver =  type:string
+
+%Library.SQLConnection. DSN =  type:string
+%Library.SQLConnection. Name = Default_Name_SQLConnection type:string
+%Library.SQLConnection. OnConnectStatement =  type:string
+%Library.SQLConnection. ReverseOJ = 0 type:number
+%Library.SQLConnection. URL = jdbc:sqlserver://ip address:port;databaseName=default_db type:string
+%Library.SQLConnection. Usr = Default_DB_UserName type:string
+%Library.SQLConnection. bUnicodeStream = 0 type:number
+%Library.SQLConnection. bindTSasString = 0 type:number
+%Library.SQLConnection. classpath = /opt/oracle/sqljdbc42.jar type:string
+%Library.SQLConnection. driver = com.microsoft.sqlserver.jdbc.SQLServerDriver type:string
+%Library.SQLConnection. isJDBC = 1 type:number
+%Library.SQLConnection. needlongdatalen = 0 type:number
+%Library.SQLConnection. noconcat =  type:string
+%Library.SQLConnection. nodefq = 0 type:number
+%Library.SQLConnection. nofnconv = 0 type:number
+%Library.SQLConnection. nvl = 0 type:number
+%Library.SQLConnection. properties =  type:string
+%Library.SQLConnection. pwd =  type:string
+%Library.SQLConnection. useCAST = 0 type:number
+%Library.SQLConnection. useCASTCHAR = 0 type:number
+%Library.SQLConnection. useCOALESCE = 1 type:number
+%Library.SQLConnection. xadriver =  type:string
+
+%Library.SQLConnection. DSN =  type:string
+%Library.SQLConnection. Name = Default_Name_SQLConnection type:string
+%Library.SQLConnection. OnConnectStatement =  type:string
+%Library.SQLConnection. ReverseOJ = 0 type:number
+%Library.SQLConnection. URL = jdbc:oracle:thin:@(DESCRIPTION_...) type:string
+%Library.SQLConnection. Usr = Default_DB_UserName type:string
+%Library.SQLConnection. bUnicodeStream = 0 type:number
+%Library.SQLConnection. bindTSasString = 0 type:number
+%Library.SQLConnection. classpath = /opt/oracle/ojdbc6.jar type:string
+%Library.SQLConnection. driver = oracle.jdbc.driver.OracleDriver type:string
+%Library.SQLConnection. isJDBC = 1 type:number
+%Library.SQLConnection. needlongdatalen = 0 type:number
+%Library.SQLConnection. noconcat =  type:string
+%Library.SQLConnection. nodefq = 0 type:number
+%Library.SQLConnection. nofnconv = 0 type:number
+%Library.SQLConnection. nvl = 0 type:number
+%Library.SQLConnection. properties =  type:string
+%Library.SQLConnection. pwd =  type:string
+%Library.SQLConnection. useCAST = 0 type:number
+%Library.SQLConnection. useCASTCHAR = 0 type:number
 %Library.SQLConnection. useCOALESCE = 1 type:number
 %Library.SQLConnection. xadriver =  type:string
 
