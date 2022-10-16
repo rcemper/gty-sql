@@ -5,7 +5,11 @@
 [![Docker-ports](https://img.shields.io/badge/dynamic/yaml?color=blue&label=docker-compose&prefix=ports%20-%20&query=%24.services.iris.ports&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsergeymi37%2Fgateway-sql%2Fmaster%2Fdocker-compose.yml)](https://raw.githubusercontent.com/sergeymi37/gateway-sql/master/docker-compose.yml)
  
 ## gateway-sql
-Module for importing instances of the %Library.SQLConnection class into the %SYS namespace, copying the jdbс drivers `ojdbc6.jar, sqljdbc42.jar, mysql-connector-java-8.0.21.jar`.
+This project has several jdbc drivers and a program that copies them to your IRIS instance while creating settings in the SQLConection class in an interactive dialog with the ability to change properties.
+
+Driver List: `ojdbc6.jar, sqljdbc42.jar, mysql-connector-java-8.0.21.jar, postgresql-42.3.1.jar`.
+
+The project will be useful for those who need to transfer many settings from one system to another, when the other already has settings and cannot be transferred with the full global ^%SYS("sql","ODBCCONNECTION","DATA").
 
 ## Installation with ZPM
 
