@@ -20,7 +20,7 @@ ClassMethod ImportSQLConnection(mode = "") As %Status
 ClassMethod ImportView(%appTmp) As %Status
 {
 	write:$g(%appClassSave) !
-	write !,$g(%appClass)_". "_%appClassProp_" = "_%appClassPropVal_" type:"_%appClassPropType ;_" "_$g(%appClassSave)_" "_$g(%appTmp)_" "_$g(%appClassPropSet)
+	write !,$g(%appClass)_"."_%appClassProp_" = """_%appClassPropVal_""" " ; type:"_%appClassPropType ;_" "_$g(%appClassSave)_" "_$g(%appTmp)_" "_$g(%appClassPropSet)
 	set %appClassPropSet=0 ; don't assign a property with that name
 	set %appClassSave=0  ; don't save an instance of the class
 	zt "show_must_go_on" ; redefine the exception <INTERRUPT>
@@ -33,7 +33,14 @@ ClassMethod ImportChange(%appTmp) As %Status
 	;write !,$g(%appClass)_". "_%appClassProp_" = "_%appClassPropVal ;_" type:"_%appClassPropType_" "_$g(%appClassSave)_" "_$g(%appTmp)_" "_$g(%appClassPropSet)
 	if $lf($lb("Name","URL","Usr","driver"),%appClassProp) do ..Prompt()
 	if %appClassProp="pwd" set %appClassPropSet=0,%appClassPropVal="" write !,"The password will need to be entered in the portal interface",!! ;don't assign a property with that name
-	if %appClassProp="classpath" do ..Prompt(),..CopyJar()
+	if %appClassProp="classpath" {
+		set pathfile=%appClassPropVal
+		set slash=$s($zversion(1)=3:"/",1:"\")
+		set filesjar=$lg(%appTmp,1)_$p(pathfile,slash,*)
+		set %appClassPropVal=filesjar
+		do ..Prompt(),..CopyJar()
+	}
+	if %appClassProp="isJDBC" set %appClassPropVal=1
 	quit $$$OK
 }
 
