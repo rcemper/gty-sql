@@ -4,6 +4,8 @@
  
 [![Docker-ports](https://img.shields.io/badge/dynamic/yaml?color=blue&label=docker-compose&prefix=ports%20-%20&query=%24.services.iris.ports&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsergeymi37%2Fgateway-sql%2Fmaster%2Fdocker-compose.yml)](https://raw.githubusercontent.com/sergeymi37/gateway-sql/master/docker-compose.yml)
  
+ [![Quality Gate Status](https://community.objectscriptquality.com/api/project_badges/measure?project=intersystems_iris_community%2Fgateway-sql&metric=alert_status)](https://community.objectscriptquality.com/dashboard?id=intersystems_iris_community%2Fgateway-sql)
+ 
 ## gateway-sql
 This project has several jdbc drivers and a program that copies them to your IRIS instance while creating settings in the SQLConection class in an interactive dialog with the ability to change properties.
 
